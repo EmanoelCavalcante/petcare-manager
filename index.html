@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang=""pt-BR>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale1.0">
+
+    <title>PetShop Manager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+        <div class="brand-logo">
+            <img src="assets/img/logo-consulta-pet.png" alt="Logo Consulta Pet">
+        </div>
+
+        <div>
+            <h1>Consulta Pet</h1>
+            <span>Manager</span>
+        </div>
+        </div>
+
+        <nav class="menu">
+        <a href="#" class="menu-item active">
+            <span>🏠</span>
+            Dashboard
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>👤</span>
+            Clientes
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>🐶</span>
+            Pets
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>🛁</span>
+            Serviços
+        </a>
+
+        <a href="#" class="menu-item">
+            <span>📅</span>
+            Agendamentos
+        </a>
+        </nav>
+
+        <div class="sidebar-card">
+        <p>Status da loja</p>
+        <strong>Aberta agora</strong>
+        <span>08:00 - 18:00</span>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+        <div>
+            <p class="page-label">Painel administrativo</p>
+            <h2>Dashboard</h2>
+        </div>
+
+        <button class="btn-primary">
+            + Novo agendamento
+        </button>
+        </header>
+
+        <section class="hero-card">
+        <div class="hero-info">
+            <span class="status-pill">● Aberta agora</span>
+
+            <h2>Gestão para Consulta Pet</h2>
+
+            <p>
+            Organize clientes, pets e horários de atendimento com mais clareza.
+            Um painel direto para acompanhar banho e tosa, consultas, exames e serviços do dia.
+            </p>
+
+            <div class="hero-actions">
+            <button class="btn-primary">Cadastrar cliente</button>
+            <button class="btn-secondary">Ver agendamentos</button>
+            </div>
+        </div>
+
+        <div class="hero-logo">
+            <img src="assets/img/logo-consulta-pet.png" alt="Logo Consulta Pet">
+        </div>
+        </section>
+
+        <section class="stats-grid">
+
+        <article class="stat-card">
+            <div class="stat-icon blue">👤</div>
+            <p>Clientes</p>
+            <strong>0</strong>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon green">🐾</div>
+            <p>Pets</p>
+            <strong>0</strong>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon cyan">🛁</div>
+            <p>Serviços</p>
+            <strong>0</strong>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon red">📅</div>
+            <p>Agendamentos</p>
+            <strong>0</strong>
+        </article>
+
+        </section>
+
+        <section class="content-grid">
+
+        <div class="panel">
+            <div class="panel-header">
+            <div>
+                <p class="page-label">Cadastro rápido</p>
+                <h3>Novo cliente</h3>
+            </div>
+            </div>
+
+            <form class="form" id="formCliente">
+            <div class="form-group">
+                <label for="nomeCliente">Nome do cliente</label>
+                <input type="text" id="nomeCliente" placeholder="Ex: Maria Silva">
+            </div>
+
+            <div class="form-group">
+                <label for="telefoneCliente">Telefone</label>
+                <input type="text" id="telefoneCliente" placeholder="Ex: (91) 98172-0235">
+            </div>
+
+            <div class="form-group">
+                <label for="enderecoCliente">Endereço</label>
+                <input type="text" id="enderecoCliente" placeholder="Ex: Avenida Pará">
+            </div>
+
+            <button type="submit" class="btn-primary full">
+                Salvar cliente
+            </button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+            <div>
+                <p class="page-label">Hoje</p>
+                <h3>Próximos agendamentos</h3>
+            </div>
+
+            <span class="badge">0 ativos</span>
+            </div>
+
+            <div class="empty-state">
+            <div>📅</div>
+            <h4>Nenhum agendamento ainda</h4>
+            <p>Quando você cadastrar um banho, tosa ou consulta, ele aparecerá aqui.</p>
+            </div>
+        </div>
+
+        </section>
+
+    </main>
+
+    </div>
+</body>
