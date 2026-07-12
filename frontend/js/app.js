@@ -179,4 +179,4 @@ btnParaAgendamentos.addEventListener("click", function() {
 //Initialize a dashboard 
 loadClients();
 renderClients();
-updateDashboard();   
+updateDashboard();
