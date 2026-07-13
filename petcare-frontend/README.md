@@ -31,7 +31,7 @@ O desenvolvimento está sendo realizado de forma gradual, aplicando conceitos pr
 
 ## 🖥️ Visão geral
 
-![Dashboard do PetCare Manager](docs/images/dashboard.png)
+![Dashboard do PetCare Manager](docs/images/dashboard-petcare.png)
 
 O dashboard apresenta uma visão centralizada da operação, incluindo:
 
