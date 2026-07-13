@@ -5,7 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PetShop Manager</title>
+  <meta
+    name="description"
+    content="PetCare Manager: gestão de clientes, pets, serviços e agendamentos para clínicas e pet shops."
+  >
+
+  <title>PetCare Manager</title>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,38 +22,38 @@
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-logo">
-          <img src="assets/img/logo-consulta-pet.png" alt="Logo Consulta Pet">
+          <img src="assets/img/petcare-logo.png" alt="Logo PetCare Manager">
         </div>
 
-        <div>
-          <h1>Consulta Pet</h1>
+        <div class="brand-text">
+          <h1>PetCare</h1>
           <span>Manager</span>
         </div>
       </div>
 
-      <nav class="menu">
+      <nav class="menu" aria-label="Navegação principal">
         <a href="#" class="menu-item active" data-page="dashboard">
-          <span>🏠</span>
+          <span aria-hidden="true">🏠</span>
           Dashboard
         </a>
 
         <a href="#" class="menu-item" data-page="clientes">
-          <span>👤</span>
+          <span aria-hidden="true">👤</span>
           Clientes
         </a>
 
         <a href="#" class="menu-item" data-page="pets">
-          <span>🐶</span>
+          <span aria-hidden="true">🐶</span>
           Pets
         </a>
 
         <a href="#" class="menu-item" data-page="servicos">
-          <span>🛁</span>
+          <span aria-hidden="true">🛁</span>
           Serviços
         </a>
 
         <a href="#" class="menu-item" data-page="agendamentos">
-          <span>📅</span>
+          <span aria-hidden="true">📅</span>
           Agendamentos
         </a>
       </nav>
@@ -72,60 +77,63 @@
             <h2>Dashboard</h2>
           </div>
 
-          <button class="btn-primary">
+          <button type="button" class="btn-primary">
             + Novo agendamento
           </button>
         </header>
 
         <section class="hero-card">
           <div class="hero-info">
-            <span class="status-pill">● Aberta agora</span>
+            <span class="status-pill">
+              <span class="status-dot" aria-hidden="true"></span>
+              Aberta agora
+            </span>
 
-            <h2>Gestão para Consulta Pet</h2>
+            <h2>Gestão inteligente para clínicas e pet shops</h2>
 
             <p>
-              Organize clientes, pets e horários de atendimento com mais clareza.
-              Um painel direto para acompanhar banho e tosa, consultas, exames e serviços do dia.
+              Centralize clientes, pets, serviços e agendamentos em um único painel.
+              Simplifique os atendimentos e tenha mais controle sobre a rotina do negócio.
             </p>
 
             <div class="hero-actions">
-              <button class="btn-primary" id="btnParaClientes">
+              <button type="button" class="btn-primary" id="btnParaClientes">
                 Cadastrar cliente
               </button>
 
-              <button class="btn-secondary" id="btnParaAgendamentos">
+              <button type="button" class="btn-secondary" id="btnParaAgendamentos">
                 Ver agendamentos
               </button>
             </div>
           </div>
 
           <div class="hero-logo">
-            <img src="assets/img/logo-consulta-pet.png" alt="Logo Consulta Pet">
+            <img src="assets/img/petcare-logo.png" alt="Identidade visual PetCare Manager">
           </div>
         </section>
 
-        <section class="stats-grid">
+        <section class="stats-grid" aria-label="Resumo do sistema">
 
           <article class="stat-card">
-            <div class="stat-icon blue">👤</div>
+            <div class="stat-icon blue" aria-hidden="true">👤</div>
             <p>Clientes</p>
             <strong id="dashboardTotalClientes">0</strong>
           </article>
 
           <article class="stat-card">
-            <div class="stat-icon green">🐾</div>
+            <div class="stat-icon green" aria-hidden="true">🐾</div>
             <p>Pets</p>
             <strong id="dashboardTotalPets">0</strong>
           </article>
 
           <article class="stat-card">
-            <div class="stat-icon cyan">🛁</div>
+            <div class="stat-icon cyan" aria-hidden="true">🛁</div>
             <p>Serviços</p>
             <strong id="dashboardTotalServicos">0</strong>
           </article>
 
           <article class="stat-card">
-            <div class="stat-icon red">📅</div>
+            <div class="stat-icon red" aria-hidden="true">📅</div>
             <p>Agendamentos</p>
             <strong id="dashboardTotalAgendamentos">0</strong>
           </article>
@@ -146,7 +154,7 @@
 
             <div class="list" id="dashboardClientesList">
               <div class="empty-state">
-                <div>👤</div>
+                <div aria-hidden="true">👤</div>
                 <h4>Nenhum cliente ainda</h4>
                 <p>Os últimos clientes cadastrados irão aparecer aqui.</p>
               </div>
@@ -160,13 +168,13 @@
                 <h3>Próximos agendamentos</h3>
               </div>
 
-              <span class="badge">0 ativos</span>
+              <span class="badge" id="dashboardAgendamentosBadge">0 ativos</span>
             </div>
 
             <div class="empty-state">
-              <div>📅</div>
+              <div aria-hidden="true">📅</div>
               <h4>Nenhum agendamento ainda</h4>
-              <p>Quando você cadastrar um banho, tosa ou consulta, ele aparecerá aqui.</p>
+              <p>Quando você cadastrar um banho, uma tosa ou uma consulta, o atendimento aparecerá aqui.</p>
             </div>
           </div>
 
@@ -198,17 +206,32 @@
 
               <div class="form-group">
                 <label for="nomeCliente">Nome do cliente</label>
-                <input type="text" id="nomeCliente" placeholder="Ex: Maria Silva">
+                <input
+                  type="text"
+                  id="nomeCliente"
+                  placeholder="Ex.: Maria Silva"
+                  autocomplete="name"
+                >
               </div>
 
               <div class="form-group">
                 <label for="telefoneCliente">Telefone</label>
-                <input type="text" id="telefoneCliente" placeholder="Ex: (91) 98172-0235">
+                <input
+                  type="tel"
+                  id="telefoneCliente"
+                  placeholder="Ex.: (91) 98172-0235"
+                  autocomplete="tel"
+                >
               </div>
 
               <div class="form-group">
                 <label for="enderecoCliente">Endereço</label>
-                <input type="text" id="enderecoCliente" placeholder="Ex: Avenida Pará">
+                <input
+                  type="text"
+                  id="enderecoCliente"
+                  placeholder="Ex.: Avenida Pará"
+                  autocomplete="street-address"
+                >
               </div>
 
               <button type="submit" class="btn-primary full">
@@ -230,7 +253,7 @@
 
             <div class="list" id="listaClientes">
               <div class="empty-state">
-                <div>👤</div>
+                <div aria-hidden="true">👤</div>
                 <h4>Nenhum cliente ainda</h4>
                 <p>Cadastre o primeiro cliente para começar a organizar os pets e agendamentos.</p>
               </div>
@@ -250,7 +273,7 @@
             <h2>Pets</h2>
           </div>
 
-          <button class="btn-primary">
+          <button type="button" class="btn-primary">
             + Novo pet
           </button>
         </header>
@@ -258,7 +281,7 @@
         <div class="panel">
           <h3>Cadastro e listagem de pets</h3>
           <p class="text-muted">
-            Aqui vamos relacionar cada pet com seu respectivo dono.
+            Aqui cada pet será relacionado ao seu respectivo responsável.
           </p>
         </div>
 
@@ -269,11 +292,11 @@
 
         <header class="topbar">
           <div>
-            <p class="page-label">Catálogo do petshop</p>
+            <p class="page-label">Catálogo do pet shop</p>
             <h2>Serviços</h2>
           </div>
 
-          <button class="btn-primary">
+          <button type="button" class="btn-primary">
             + Novo serviço
           </button>
         </header>
@@ -281,7 +304,7 @@
         <div class="panel">
           <h3>Serviços disponíveis</h3>
           <p class="text-muted">
-            Aqui vamos cadastrar banho, tosa, consultas, exames e outros serviços.
+            Aqui serão cadastrados banho, tosa, consultas, exames e outros serviços.
           </p>
         </div>
 
@@ -292,11 +315,11 @@
 
         <header class="topbar">
           <div>
-            <p class="page-label">Agenda do dia</p>
+            <p class="page-label">Agenda de atendimentos</p>
             <h2>Agendamentos</h2>
           </div>
 
-          <button class="btn-primary">
+          <button type="button" class="btn-primary">
             + Novo agendamento
           </button>
         </header>
@@ -304,7 +327,7 @@
         <div class="panel">
           <h3>Lista de agendamentos</h3>
           <p class="text-muted">
-            Aqui vamos criar, listar e alterar o status dos agendamentos.
+            Aqui será possível criar, consultar e alterar o status dos agendamentos.
           </p>
         </div>
 
