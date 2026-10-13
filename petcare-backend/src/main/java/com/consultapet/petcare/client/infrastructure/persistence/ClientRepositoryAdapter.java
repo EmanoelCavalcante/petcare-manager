@@ -1,4 +1,36 @@
 package com.consultapet.petcare.client.infrastructure.persistence;
 
-public class ClientRepositoryAdapter {
+import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
+import com.consultapet.petcare.client.domain.model.Cliente;
+
+import java.util.List;
+import java.util.Optional;
+
+public class ClientRepositoryAdapter implements ClienteRepositoryPortOut {
+
+    private final ClientRepository repository;
+
+    public ClientRepositoryAdapter(ClientRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public Cliente salvar(Cliente cliente){
+       return repository.save(cliente);
+    }
+
+    @Override
+    public List<Cliente> listar(){
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<Cliente> buscarPorId(Long id){
+       return repository.findById(id);
+    }
+
+    @Override
+    public void excluir(Long id){
+        repository.deleteById(id);
+    }
 }
