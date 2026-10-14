@@ -2,6 +2,7 @@ package com.consultapet.petcare.client.application.service;
 
 import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
 import com.consultapet.petcare.client.domain.model.Cliente;
+import com.consultapet.petcare.pet.domain.model.Pet;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,18 +61,19 @@ public class ClientService{
             throw new IllegalArgumentException("Telefone do cliente é obrigatório.");
         }
 
-        if(telefone.length() != 10 && telefone.length() != 11){
-            throw new IllegalArgumentException(
-                    "O telefone deve conter 10 ou 11 dígitos"
-            );
-        }
-
         if(endereco == null || endereco.isBlank()){
             throw new IllegalArgumentException("Endereço do cliente é obrigatório.");
         }
 
         nome = nome.trim().replaceAll("\\s+"," ");
         telefone = telefone.replaceAll("\\D","");
+
+        if(telefone.length() != 10 && telefone.length() != 11){
+            throw new IllegalArgumentException(
+                    "O telefone deve conter 10 ou 11 dígitos"
+            );
+        }
+
         endereco = endereco.trim().replaceAll("\\s+"," ");
 
 
@@ -80,5 +82,9 @@ public class ClientService{
         cliente.setEndereco(endereco);
 
         return cliente;
+    }
+
+    private Pet petNormalizado(Pet petCliente){
+        return null;
     }
 }

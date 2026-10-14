@@ -2,10 +2,12 @@ package com.consultapet.petcare.client.infrastructure.persistence;
 
 import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
 import com.consultapet.petcare.client.domain.model.Cliente;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ClientRepositoryAdapter implements ClienteRepositoryPortOut {
 
     private final ClientRepository repository;
