@@ -1,90 +1,90 @@
+
 package com.consultapet.petcare.client.application.service;
 
+import com.consultapet.petcare.client.application.dto.ClienteRequestDTO;
+import com.consultapet.petcare.client.application.dto.ClienteResponseDTO;
 import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
 import com.consultapet.petcare.client.domain.model.Cliente;
-import com.consultapet.petcare.pet.domain.model.Pet;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ClientService{
+public class ClientService {
 
     private final ClienteRepositoryPortOut repositoryPortOut;
 
-    public ClientService(ClienteRepositoryPortOut repositoryPort) {
-        this.repositoryPortOut = repositoryPort;
+    public ClientService(ClienteRepositoryPortOut repositoryPortOut) {
+        this.repositoryPortOut = repositoryPortOut;
     }
 
-    public Cliente salvar(Cliente cliente){
+    public ClienteResponseDTO criar(ClienteRequestDTO request) {
+        Cliente cliente = clienteNormalizado(request);
+        Cliente clienteSalvo = salvar(cliente);
 
-        return repositoryPortOut.salvar(clienteNormalizado(cliente));
+        return ClienteResponseDTO.fromEntity(clienteSalvo);
     }
 
-    public Cliente editar(Long id, Cliente dadosAtualizados){
+    public ClienteResponseDTO editar(Long id, ClienteRequestDTO dadosAtualizados) {
+        Cliente normalizado = clienteNormalizado(dadosAtualizados);
+
         Cliente clienteExistente = repositoryPortOut.buscarPorId(id)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Cliente não encontrado")
-                );
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
 
-        clienteNormalizado(dadosAtualizados);
+        clienteExistente.setNome(normalizado.getNome());
+        clienteExistente.setTelefone(normalizado.getTelefone());
+        clienteExistente.setEndereco(normalizado.getEndereco());
 
-        clienteExistente.setNome(dadosAtualizados.getNome());
-        clienteExistente.setTelefone(dadosAtualizados.getTelefone());
-        clienteExistente.setEndereco(dadosAtualizados.getEndereco());
+        Cliente clienteSalvo = salvar(clienteExistente);
 
-        return repositoryPortOut.salvar(clienteExistente);
+        return ClienteResponseDTO.fromEntity(clienteSalvo);
     }
 
-    public List<Cliente> listar(){
-        return repositoryPortOut.listar();
+    public List<ClienteResponseDTO> listar() {
+        return repositoryPortOut.listar()
+                .stream()
+                .map(ClienteResponseDTO::fromEntity)
+                .toList();
     }
 
-    public void excluir(Long id){
+    public void excluir(Long id) {
         repositoryPortOut.buscarPorId(id)
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Cliente não encontrado")
-                );
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+
         repositoryPortOut.excluir(id);
     }
 
-    private Cliente clienteNormalizado(Cliente cliente){
-        String nome = cliente.getNome();
-        String telefone = cliente.getTelefone();
-        String endereco = cliente.getEndereco();
+    private Cliente clienteNormalizado(ClienteRequestDTO dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("Os dados do cliente são obrigatórios.");
+        }
 
-        if(nome == null || nome.isBlank()){
+        if (dto.nome() == null || dto.nome().isBlank()) {
             throw new IllegalArgumentException("Nome do cliente é obrigatório.");
         }
 
-        if(telefone == null || telefone.isBlank()){
+        if (dto.telefone() == null || dto.telefone().isBlank()) {
             throw new IllegalArgumentException("Telefone do cliente é obrigatório.");
         }
 
-        if(endereco == null || endereco.isBlank()){
-            throw new IllegalArgumentException("Endereço do cliente é obrigatório.");
+        String telefone = dto.telefone().replaceAll("\\D", "");
+
+        if (telefone.length() != 10 && telefone.length() != 11) {
+            throw new IllegalArgumentException("O telefone deve conter 10 ou 11 dígitos");
         }
 
-        nome = nome.trim().replaceAll("\\s+"," ");
-        telefone = telefone.replaceAll("\\D","");
+        Cliente cliente = new Cliente();
 
-        if(telefone.length() != 10 && telefone.length() != 11){
-            throw new IllegalArgumentException(
-                    "O telefone deve conter 10 ou 11 dígitos"
-            );
-        }
-
-        endereco = endereco.trim().replaceAll("\\s+"," ");
-
-
-        cliente.setNome(nome);
+        cliente.setNome(dto.nome().strip().replaceAll("\\s+", " "));
         cliente.setTelefone(telefone);
-        cliente.setEndereco(endereco);
+        cliente.setEndereco(dto.endereco() == null
+                ? null
+                : dto.endereco().strip().replaceAll("\\s+", " "));
 
         return cliente;
     }
 
-    private Pet petNormalizado(Pet petCliente){
-        return null;
+    private Cliente salvar(Cliente cliente) {
+        return repositoryPortOut.salvar(cliente);
     }
 }
