@@ -3,13 +3,12 @@ package com.consultapet.petcare.cliente.application.service.ClienteServiceTest;
 import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
 import com.consultapet.petcare.client.application.service.ClientService;
 import com.consultapet.petcare.client.domain.model.Cliente;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
