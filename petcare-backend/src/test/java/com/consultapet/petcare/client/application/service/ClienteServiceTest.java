@@ -23,13 +23,13 @@ import static org.mockito.Mockito.when;
 class ClienteServiceTest {
 
     private final ClienteRepositoryPortOut repositoryPortOut = mock(ClienteRepositoryPortOut.class);
-    private final ClientService clientService = new ClientService(repositoryPortOut);
+    private final ClienteService clienteService = new ClienteService(repositoryPortOut);
 
     @Test
     void deveRejeitarClienteSemNome() {
         ClienteRequestDTO dto = new ClienteRequestDTO("   ", "91999999999", "Centro");
 
-        assertThrows(IllegalArgumentException.class, () -> clientService.criar(dto));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.criar(dto));
 
         verify(repositoryPortOut, never()).salvar(any(Cliente.class));
     }
@@ -38,7 +38,7 @@ class ClienteServiceTest {
     void deveRejeitarTelefoneVazio() {
         ClienteRequestDTO dto = new ClienteRequestDTO("João", " ", "Centro");
 
-        assertThrows(IllegalArgumentException.class, () -> clientService.criar(dto));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.criar(dto));
 
         verify(repositoryPortOut, never()).salvar(any(Cliente.class));
     }
@@ -47,15 +47,15 @@ class ClienteServiceTest {
     void deveRejeitarTelefoneComQuantidadeInvalidaDeDigitos() {
         ClienteRequestDTO dto = new ClienteRequestDTO("João", "-(91)-9984+45^15909103", "Centro");
 
-        assertThrows(IllegalArgumentException.class, () -> clientService.criar(dto));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.criar(dto));
 
         verify(repositoryPortOut, never()).salvar(any(Cliente.class));
     }
 
     @Test
     void deveRejeitarDtoNulo() {
-        assertThrows(IllegalArgumentException.class, () -> clientService.criar(null));
-        assertThrows(IllegalArgumentException.class, () -> clientService.editar(1L, null));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.criar(null));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.editar(1L, null));
 
         verify(repositoryPortOut, never()).salvar(any(Cliente.class));
     }
@@ -67,7 +67,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.salvar(any(Cliente.class)))
                 .thenReturn(cliente(1L, "João Ramos", "91986661430", "Rua das Flores"));
 
-        clientService.criar(dto);
+        clienteService.criar(dto);
 
         ArgumentCaptor<Cliente> captor = ArgumentCaptor.forClass(Cliente.class);
         verify(repositoryPortOut).salvar(captor.capture());
@@ -83,7 +83,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.salvar(any(Cliente.class)))
                 .thenReturn(cliente(1L, "João", "9198445159", "Centro"));
 
-        clientService.criar(dto);
+        clienteService.criar(dto);
 
         verify(repositoryPortOut).salvar(any(Cliente.class));
     }
@@ -94,7 +94,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.salvar(any(Cliente.class)))
                 .thenReturn(cliente(5L, "João Salvo", "91999999999", null));
 
-        ClienteResponseDTO resultado = clientService.criar(dto);
+        ClienteResponseDTO resultado = clienteService.criar(dto);
 
         assertEquals(Long.valueOf(5L), resultado.id());
         assertEquals("João Salvo", resultado.nome());
@@ -108,7 +108,7 @@ class ClienteServiceTest {
         ClienteRequestDTO dto = new ClienteRequestDTO("João Ramos", "94999999991", "Centro");
         when(repositoryPortOut.buscarPorId(1L)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> clientService.editar(1L, dto));
+        assertThrows(IllegalArgumentException.class, () -> clienteService.editar(1L, dto));
 
         verify(repositoryPortOut, never()).salvar(any(Cliente.class));
     }
@@ -121,7 +121,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.salvar(existente))
                 .thenReturn(cliente(1L, "João Ramos", "94999999991", "Rua Nova"));
 
-        ClienteResponseDTO resultado = clientService.editar(1L, dto);
+        ClienteResponseDTO resultado = clienteService.editar(1L, dto);
 
         assertEquals(Long.valueOf(1L), existente.getId());
         assertEquals("João Ramos", existente.getNome());
@@ -139,7 +139,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.buscarPorId(1L))
                 .thenReturn(Optional.of(cliente(1L, "João", "91999999999", "Centro")));
 
-        clientService.excluir(1L);
+        clienteService.excluir(1L);
 
         verify(repositoryPortOut).buscarPorId(1L);
         verify(repositoryPortOut).excluir(1L);
@@ -150,7 +150,7 @@ class ClienteServiceTest {
         when(repositoryPortOut.buscarPorId(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> clientService.excluir(1L));
+                IllegalArgumentException.class, () -> clienteService.excluir(1L));
 
         assertEquals("Cliente não encontrado", exception.getMessage());
         verify(repositoryPortOut, never()).excluir(1L);
@@ -162,7 +162,7 @@ class ClienteServiceTest {
                 cliente(1L, "João", "91999999999", "Centro"),
                 cliente(2L, "Maria", "94999999991", null)));
 
-        List<ClienteResponseDTO> resultado = clientService.listar();
+        List<ClienteResponseDTO> resultado = clienteService.listar();
 
         assertEquals(2, resultado.size());
         assertEquals(Long.valueOf(1L), resultado.get(0).id());
@@ -176,7 +176,7 @@ class ClienteServiceTest {
     void deveRetornarListaVaziaQuandoNaoExistemClientes() {
         when(repositoryPortOut.listar()).thenReturn(List.of());
 
-        List<ClienteResponseDTO> resultado = clientService.listar();
+        List<ClienteResponseDTO> resultado = clienteService.listar();
 
         assertTrue(resultado.isEmpty());
         verify(repositoryPortOut).listar();

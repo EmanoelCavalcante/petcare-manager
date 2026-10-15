@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ClientRepositoryAdapter implements ClienteRepositoryPortOut {
+public class ClienteRepositoryAdapter implements ClienteRepositoryPortOut {
 
-    private final ClientRepository repository;
+    private final ClienteRepository repository;
 
-    public ClientRepositoryAdapter(ClientRepository repository) {
+    public ClienteRepositoryAdapter(ClienteRepository repository) {
         this.repository = repository;
     }
 

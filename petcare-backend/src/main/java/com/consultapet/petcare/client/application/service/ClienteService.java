@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientService {
+public class ClienteService {
 
     private final ClienteRepositoryPortOut repositoryPortOut;
 
-    public ClientService(ClienteRepositoryPortOut repositoryPortOut) {
+    public ClienteService(ClienteRepositoryPortOut repositoryPortOut) {
         this.repositoryPortOut = repositoryPortOut;
     }
 
