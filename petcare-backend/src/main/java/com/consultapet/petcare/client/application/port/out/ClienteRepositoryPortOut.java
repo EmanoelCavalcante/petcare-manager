@@ -15,5 +15,5 @@ public interface ClienteRepositoryPortOut {
 
     Optional<Cliente> buscarPorId(Long id);
 
-    void excluir(Long id);
+    void deletar(Long id);
 }

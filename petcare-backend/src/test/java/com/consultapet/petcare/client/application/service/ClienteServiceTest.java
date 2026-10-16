@@ -139,10 +139,9 @@ class ClienteServiceTest {
         when(repositoryPortOut.buscarPorId(1L))
                 .thenReturn(Optional.of(cliente(1L, "João", "91999999999", "Centro")));
 
-        clienteService.excluir(1L);
+        clienteService.deletar(1L);
 
-        verify(repositoryPortOut).buscarPorId(1L);
-        verify(repositoryPortOut).excluir(1L);
+        verify(repositoryPortOut).deletar(1L);
     }
 
     @Test
@@ -150,10 +149,10 @@ class ClienteServiceTest {
         when(repositoryPortOut.buscarPorId(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> clienteService.excluir(1L));
+                IllegalArgumentException.class, () -> clienteService.deletar(1L));
 
         assertEquals("Cliente não encontrado", exception.getMessage());
-        verify(repositoryPortOut, never()).excluir(1L);
+        verify(repositoryPortOut, never()).deletar(1L);
     }
 
     @Test

@@ -30,6 +30,13 @@ public class ClienteController {
                 .body(clienteCriado);
     }
 
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<ClienteResponseDTO> buscarClientePorId(
+            @PathVariable Long id
+    ){
+        return ResponseEntity.ok(clienteService.buscarClientePorId(id));
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List<ClienteResponseDTO>> listarClientes(){
         return ResponseEntity.ok(clienteService.listar());
@@ -44,10 +51,10 @@ public class ClienteController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> excluirCliente(
+    public ResponseEntity<Void> deletarCliente(
             @PathVariable Long id
     ){
-        clienteService.excluir(id);
+        clienteService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

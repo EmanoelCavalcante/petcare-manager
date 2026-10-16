@@ -3,8 +3,10 @@ package com.consultapet.petcare.client.application.service;
 
 import com.consultapet.petcare.client.application.dto.ClienteRequestDTO;
 import com.consultapet.petcare.client.application.dto.ClienteResponseDTO;
+import com.consultapet.petcare.client.application.exception.ClienteNaoEncontradoException;
 import com.consultapet.petcare.client.application.port.out.ClienteRepositoryPortOut;
 import com.consultapet.petcare.client.domain.model.Cliente;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,11 +49,27 @@ public class ClienteService {
                 .toList();
     }
 
-    public void excluir(Long id) {
-        repositoryPortOut.buscarPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+    public ClienteResponseDTO buscarClientePorId(Long id){
+     Cliente clienteId = repositoryPortOut.buscarPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
 
-        repositoryPortOut.excluir(id);
+     return toResponse(clienteId);
+    }
+
+    public void deletar(Long id) {
+       repositoryPortOut.buscarPorId(id)
+                .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado" + id));
+
+        repositoryPortOut.deletar(id);
+    }
+
+    private ClienteResponseDTO toResponse(Cliente cliente){
+        return new ClienteResponseDTO(
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEndereco()
+        );
     }
 
     private Cliente clienteNormalizado(ClienteRequestDTO dto) {

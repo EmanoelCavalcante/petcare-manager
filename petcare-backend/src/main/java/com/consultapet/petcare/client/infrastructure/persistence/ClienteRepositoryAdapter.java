@@ -32,7 +32,7 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPortOut {
     }
 
     @Override
-    public void excluir(Long id){
+    public void deletar(Long id){
         repository.deleteById(id);
     }
 }
